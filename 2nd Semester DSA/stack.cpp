@@ -1,54 +1,43 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <bits/stdc++.h>
+using namespace std;
 #define MAX 10
 
-int stack1[MAX];
-int top = -1;
+int stack1[MAX], top = -1;
 
-void push(int value){
-
-    if(top == MAX - 1){
-        printf("Error: Stack Overflow!\n");
-    }
-    else{
-        top++;
-        stack1[top++] = value;
-    }
+void push(int val){
+    if(top == MAX - 1) cout << "ERROR: Stack Overflow!" << endl;
+    else stack1[++top] = val;
 }
-int pop(){
 
+int pop(){
     if(top == -1){
-        printf("Error: Stack Underflow!\n");
+        cout << "ERROR: Stack Underflow!" << endl;
         return -1;
     }
-    top--;
-    return stack1[top+1];
+    return stack1[top--];
 }
-void print1(int a[]){
-    if(top == -1){
-        printf("Stack is empty\n");
-    }
-    else{
-        printf("Stack elements: ");
-        for(int i = top; i >= 0; i--){
-            printf("%d ", stack1[i]);
-        }
-        printf("\n");
-    }
-}
-int main(){
 
-    int value, n;
-    printf("Enter Value: ");
-    scanf("%d", &n);
-    for(int i = 0; n >= 0; i++){
-        (n % 2 == 0) ? value = 0: value = 1;
-        push(value);
-        if(n / 2 == 1 || n/2 == 0){
-            value = 1;
-            push(value);
-        }
+void dtob(int n){
+    if(n == 0){
+        cout << "Binary: 0" << endl;
+        return;
     }
+    while(n > 0){
+        push(n % 2);
+        n /= 2;
+    }
+    cout << "Binary: ";
+    while(top != -1) cout << pop();
+    cout << endl;
+}
+
+int main() {
+    int n;
+    cout << "Decimal Value: ";
+    cin >> n;
+
+    if(n < 0) cout << "Enter value above 0" << endl;
+    else dtob(n);
 
     return 0;
 }
